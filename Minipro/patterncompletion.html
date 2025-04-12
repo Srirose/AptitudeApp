@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Completion Quiz - AptiMize</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #4B0082;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .quiz-container {
+            width: 400px;
+            background: white;
+            color: black;
+            padding: 20px;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        
+
+
+        #options button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px;
+            background: #4B0082;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h2>Topic: Pattern Completion</h2>
+        <h3 id="question-text">Loading...</h3>
+        
+        <div id="options"></div>
+
+        <button id="submit-btn" onclick="submitQuiz()" style="display: none;">Submit</button>
+
+        <div id="score">
+            <h3>Score: <span id="score-value">0</span></h3>
+        </div>
+
+        <div id="time">
+            <h3>Time Taken: <span id="time-value">0</span> seconds</h3>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let startTime = Date.now();
+        let questions = [
+            { question: "1) What comes next in the pattern: 2, 4, 8, 16, __?", options: ["24", "32", "18", "20"], answer: "32" },
+            { question: "2) Find the missing shape in the sequence.", options: ["Triangle", "Square", "Circle", "Pentagon"], answer: "Triangle" },
+            { question: "3) Complete the series: A, C, E, G, __?", options: ["H", "I", "J", "K"], answer: "I" },
+            { question: "4) Identify the missing number: 5, 10, 20, 40, __?", options: ["60", "70", "80", "90"], answer: "80" },
+            { question: "5) What comes next in the pattern: 1, 4, 9, 16, __?", options: ["20", "25", "30", "36"], answer: "25" },
+            { question: "6) If a pattern follows 2, 6, 12, 20, what is the next number?", options: ["28", "30", "32", "34"], answer: "30" },
+            { question: "7) If a sequence follows a pattern of doubling the previous number, what is next after 3, 6, 12, 24?", options: ["36", "40", "48", "50"], answer: "48" },
+            { question: "8) What shape follows in the pattern: Circle, Square, Circle, Square, __?", options: ["Triangle", "Circle", "Square", "Pentagon"], answer: "Circle" },
+            { question: "9) Find the missing number: 100, 90, 80, __?", options: ["60", "65", "70", "75"], answer: "70" },
+            { question: "10) Complete the pattern: Z, X, V, T, __?", options: ["R", "S", "U", "P"], answer: "R" },
+            { question: "11) What is the next term in the series: 11, 22, 33, __?", options: ["40", "42", "44", "55"], answer: "44" },
+            { question: "12) If a pattern follows 1, 1, 2, 3, 5, what is the next term?", options: ["6", "7", "8", "9"], answer: "8" },
+            { question: "13) Identify the missing shape in the sequence: Triangle, Square, Pentagon, Hexagon, __?", options: ["Octagon", "Heptagon", "Circle", "Square"], answer: "Heptagon" },
+            { question: "14) What comes next in the pattern: 3, 6, 9, 12, __?", options: ["14", "15", "18", "21"], answer: "15" },
+            { question: "15) If a clock shows 3, 6, 9, 12, what number comes next?", options: ["3", "6", "9", "12"], answer: "3" },
+            { question: "16) What is the next letter in the sequence: B, D, F, H, __?", options: ["I", "J", "K", "L"], answer: "J" },
+            { question: "17) If the pattern follows: 50, 40, 30, 20, __?", options: ["5", "10", "15", "20"], answer: "10" },
+            { question: "18) What comes next: 2, 5, 10, 17, __?", options: ["22", "24", "26", "30"], answer: "26" },
+            { question: "19) Complete the sequence: J, L, N, P, __?", options: ["Q", "R", "S", "T"], answer: "R" },
+            { question: "20) What comes after: 144, 121, 100, 81, __?", options: ["49", "64", "36", "25"], answer: "64" }
+        ];
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                let q = questions[currentQuestionIndex];
+                document.getElementById("question-text").textContent = q.question;
+
+                let optionsDiv = document.getElementById("options");
+                optionsDiv.innerHTML = "";
+                q.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(opt, q.answer);
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                document.getElementById("submit-btn").style.display = "block";
+            }
+        }
+
+        function checkAnswer(selected, correct) {
+            let optionsDiv = document.getElementById("options");
+            let buttons = optionsDiv.getElementsByTagName("button");
+
+            for (let btn of buttons) {
+                if (btn.textContent === selected) {
+                    if (selected === correct) {
+                        btn.style.backgroundColor = "green"; // Correct Answer: Green
+                    } else {
+                        btn.style.backgroundColor = "red"; // Wrong Answer: Red
+                    }
+                }
+
+                // Highlight correct answer in green
+                if (btn.textContent === correct) {
+                    btn.style.backgroundColor = "green";
+                }
+
+                // Disable all buttons to prevent multiple clicks
+                btn.disabled = true;
+            }
+
+            if (selected === correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+
+            // Wait 1 second before loading the next question
+            setTimeout(loadQuestion, 1000);
+        }
+
+        function startConfetti() {
+            const duration = 3 * 1000; // Confetti duration (3 seconds)
+            const end = Date.now() + duration;
+            const colors = ["#bb0000", "#ffffff", "#44ff00", "#0082ff"];
+
+            function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: Math.random(), y: 0 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }
+
+            frame();
+        }
+
+
+
+        function submitQuiz() {
+            totalTime = Math.floor((Date.now() - startTime) / 1000); // Calculate time in seconds
+            document.getElementById("score").style.display = "block";
+            document.getElementById("score-value").textContent = score + "/" + questions.length;
+            document.getElementById("time").style.display = "block";
+            document.getElementById("time-value").textContent = totalTime;
+
+            let userScores = JSON.parse(localStorage.getItem("userScores")) || {};
+            userScores["PatternCompletion"] = score; // Save Train quiz score
+            localStorage.setItem("userScores", JSON.stringify(userScores));
+
+            // Redirect after 3 seconds
+            setTimeout(() => {
+                window.location.href = "scoreboard.html"; // Redirect to score page
+            }, 3000);
+        }
+
+
+        loadQuestion();
+    </script>
+</body>
+</html>

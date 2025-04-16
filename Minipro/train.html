@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - AptiMize</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- MathJax CDN to render formulas
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script> -->
+
+</head>
+<style>
+    body {
+        background-color: #4B0082;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    .quiz-container {
+        width: 400px;
+        background: white;
+        color: black;
+        padding: 20px;
+        margin: auto;
+        margin-top: 50px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        /* padding:100px 100px; */
+        
+    }
+
+    #options button {
+        width: 100%;
+        padding: 10px;
+        margin: 5px;
+        background: #4B0082;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    #options button:hover {
+        background: #e50b0b;
+    }
+
+    #score {
+        display: none;
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    #time {
+        display: none;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .correct {
+    background-color: green !important;
+    color: white;
+    }
+
+    .wrong {
+        background-color: red !important;
+        color: white;
+    }
+    /* .formula {
+    background-color: #f0f8ff;
+    border-left: 4px solid #007acc;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1.1em;
+} */
+
+
+</style>
+<body>
+    <!-- <div class="formula">
+        <h3>📘 Formula for Train Problems</h3>
+        <p>
+            When two trains are moving in opposite directions:<br>
+            $$ \text{Relative Speed} = \text{Speed of Train A} + \text{Speed of Train B} $$
+        </p>
+        <p>
+            When two trains are moving in the same direction:<br>
+            $$ \text{Relative Speed} = \text{Speed of Faster Train} - \text{Speed of Slower Train} $$
+        </p>
+    </div> -->
+    
+
+    <div class="quiz-container">
+        <h2>Topic: Train</h2>
+        <h3 id="question-text">Loading...</h3>
+        
+        <div id="options"></div>
+
+        <button id="submit-btn" onclick="submitQuiz()" style="display: none;">Submit</button>
+
+        <div id="score">
+            <h3>Score: <span id="score-value">0</span></h3>
+        </div>
+
+        <div id="time">
+            <h3>Time Taken: <span id="time-value">0</span> seconds</h3>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let startTime = Date.now();
+        let totalTime = 0;
+        let questions = [
+        { question: "1) A train 150m long passes a pole in 15 sec. What is its speed?", options: ["10 m/s", "12 m/s", "15 m/s", "18 m/s"], answer: "10 m/s" },
+        { question: "2) A train moving at 90 km/h crosses a man in 6 sec. Find the train’s length.", options: ["150m", "135m", "180m", "200m"], answer: "150m" },
+        { question: "3) A train is 200m long and takes 10 sec to pass a pole. Find its speed.", options: ["20 m/s", "25 m/s", "30 m/s", "15 m/s"], answer: "20 m/s" },
+        { question: "4) A train passes a standing man in 12 sec at 72 km/h. Find train length.", options: ["240m", "180m", "144m", "216m"], answer: "240m" },
+        { question: "5) A train running at 60 km/h crosses a bridge in 30 sec. Bridge length is 300m. Find train length.", options: ["200m", "150m", "250m", "180m"], answer: "200m" },
+        { question: "6) A train 120m long crosses a 180m platform in 18 sec. Find speed.", options: ["60 km/h", "70 km/h", "80 km/h", "90 km/h"], answer: "60 km/h" },
+        { question: "7) A train crosses a 100m bridge in 20 sec at 54 km/h. Find train length.", options: ["200m", "150m", "180m", "160m"], answer: "150m" },
+        { question: "8) A 210m train crosses a 300m platform in 30 sec. Find its speed.", options: ["60 km/h", "72 km/h", "80 km/h", "90 km/h"], answer: "72 km/h" },
+        { question: "9) A 180m long train passes a 240m platform in 24 sec. Find speed.", options: ["72 km/h", "90 km/h", "84 km/h", "80 km/h"], answer: "72 km/h" },
+        { question: "10) A 200m train crosses a bridge in 25 sec at 72 km/h. Find bridge length.", options: ["250m", "200m", "220m", "180m"], answer: "250m" },
+        { question: "11) Two trains of 150m & 200m cross each other in 20 sec. Speed sum is 90 km/h. Find individual speeds.", options: ["40 km/h & 50 km/h", "30 km/h & 60 km/h", "45 km/h & 45 km/h", "50 km/h & 40 km/h"], answer: "40 km/h & 50 km/h" },
+        { question: "12) Two trains of 180m & 220m cross in 12 sec. Combined speed is 108 km/h. Find each train's speed.", options: ["50 km/h & 58 km/h", "55 km/h & 53 km/h", "45 km/h & 63 km/h", "60 km/h & 48 km/h"], answer: "60 km/h & 48 km/h" },
+        { question: "13) Two trains moving in opposite directions take 10 sec to cross each other. Their speeds are 40 km/h & 50 km/h. Find combined length.", options: ["200m", "250m", "300m", "350m"], answer: "250m" },
+        { question: "14) Two trains of equal length cross each other in 8 sec. Combined speed is 120 km/h. Find train length.", options: ["100m", "120m", "150m", "180m"], answer: "120m" },
+        { question: "15) Two trains moving at 72 km/h & 54 km/h cross in 15 sec. Find combined train length.", options: ["250m", "300m", "275m", "280m"], answer: "300m" },
+        { question: "16) A 200m train at 60 km/h overtakes a 150m train at 40 km/h in 20 sec. Find the speed difference.", options: ["10 km/h", "20 km/h", "30 km/h", "25 km/h"], answer: "20 km/h" },
+        { question: "17) Two trains at 80 km/h & 60 km/h cross in 36 sec. Find their combined length.", options: ["300m", "350m", "400m", "450m"], answer: "400m" },
+        { question: "18) A 180m train at 90 km/h overtakes a 120m train at 70 km/h in 18 sec. Find speed difference.", options: ["20 km/h", "15 km/h", "25 km/h", "10 km/h"], answer: "20 km/h" },
+        { question: "19) Two trains of equal length moving in the same direction take 40 sec to cross each other. Their speeds are 50 km/h & 40 km/h. Find train length.", options: ["200m", "250m", "300m", "350m"], answer: "250m" },
+        { question: "20) A 250m train at 60 km/h overtakes a 200m train at 50 km/h in 30 sec. Find total train length.", options: ["400m", "450m", "500m", "550m"], answer: "450m" }
+];
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                let q = questions[currentQuestionIndex];
+                document.getElementById("question-text").textContent = q.question;
+
+                let optionsDiv = document.getElementById("options");
+                optionsDiv.innerHTML = "";
+                q.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(opt, q.answer); // Auto moves to the next question
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                document.getElementById("submit-btn").style.display = "block"; // Show Submit button at the end
+            }
+        }
+
+        function checkAnswer(selected, correct) {
+            let buttons = document.querySelectorAll("#options button");
+
+            buttons.forEach(button => {
+                if (button.textContent === correct) {
+                    button.classList.add("correct"); // Highlight correct answer
+                }
+                if (button.textContent === selected && selected !== correct) {
+                    button.classList.add("wrong"); // Highlight wrong answer
+                }
+            });
+
+            // Delay before moving to the next question
+            setTimeout(() => {
+                buttons.forEach(button => button.classList.remove("correct", "wrong")); // Reset styles
+                if (selected === correct) {
+                    score++;
+                }
+                currentQuestionIndex++;
+                loadQuestion();
+            }, 1000); // 1-second delay
+        }
+        function startConfetti() {
+            const duration = 3 * 1000; // Confetti duration (3 seconds)
+            const end = Date.now() + duration;
+            const colors = ["#bb0000", "#ffffff", "#44ff00", "#0082ff"];
+
+            function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: Math.random(), y: 0 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }
+
+            frame();
+        }
+
+
+
+
+        function submitQuiz() {
+            showResults(); // Call this to update the score before redirecting
+
+            let userScores = JSON.parse(localStorage.getItem("userScores")) || {};
+            userScores["Train"] = score; // Save Train quiz score
+            localStorage.setItem("userScores", JSON.stringify(userScores));
+
+            // Redirect after 3 seconds
+            setTimeout(() => {
+                window.location.href = "scoreboard.html"; // Redirect to score page
+            }, 3000);
+        }
+
+        function showResults() {
+            let totalTime = Math.floor((Date.now() - startTime) / 1000);
+            let minutes = Math.floor(totalTime / 60);
+            let seconds = totalTime % 60;
+            let timeFormatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`; // Ensures "0" padding for seconds
+
+            document.getElementById("score").style.display = "block";
+            document.getElementById("score-value").textContent = score + "/" + questions.length;
+            document.getElementById("time").style.display = "block";
+            document.getElementById("time-value").textContent = timeFormatted;
+    }
+
+
+        // Initialize first question
+        loadQuestion();
+    </script>
+</body>
+</html>

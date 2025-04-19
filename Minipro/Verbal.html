@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AptiMize - Select Topic with Formulas</title>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="topicquizscore.css">
+    
+    <!-- MathJax for rendering formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .formula-btn {
+            background-color: #007acc;
+            color: black;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .formula-btn:hover {
+            background-color: #005fa3;
+        }
+
+        .formula-box {
+            display: none;
+            margin-top: 10px;
+            background-color: black;
+            padding: 10px;
+            border-left: 4px solid #007acc;
+            border-radius: 6px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AptiMize - Aptitude Learning</h1>
+        <h2>Select a Topic to Start</h2>
+        <div class="topics">
+        
+            <!-- Blood Relation -->
+            <a href="bloodrel.html?topic=bloodrelation">🚆 Blood Relation</a>
+            <button class="formula-btn" onclick="toggleFormula('bloodFormula')">Show Formula</button>
+            <div id="bloodFormula" class="formula-box">
+                <p><strong>Blood Relation:</strong></p>
+                <p>Blood relation problems involve identifying relationships between individuals based on their family ties. Common rules include:</p>
+            
+                <p><strong>Family Relations:</strong> Understand basic family relations such as:</p>
+                <ul>
+                    <li><strong>Father (F)</> = Male parent</li>
+                    <li><strong>Mother (M)</> = Female parent</li>
+                    <li><strong>Brother (B)</> = Male sibling</li>
+                    <li><strong>Sister (S)</> = Female sibling</li>
+                    <li><strong>Son (So)</> = Male child</li>
+                    <li><strong>Daughter (D)</> = Female child</li>
+                    <li><strong>Grandfather (GF)</> = Father of a parent</li>
+                    <li><strong>Grandmother (GM)</> = Mother of a parent</li>
+                    <li><strong>Uncle (U)</> = Brother of a parent</li>
+                    <li><strong>Aunt (A)</> = Sister of a parent</li>
+                </ul>
+            
+                <p><strong>Relational Terms:</strong> Understanding common terms used in blood relation problems:</p>
+                <ul>
+                    <li><strong>Sibling:</strong> Brother or Sister</li>
+                    <li><strong>Spouse:</strong> Husband or Wife</li>
+                    <li><strong>In-Laws:</strong> Father-in-law, Mother-in-law, Brother-in-law, Sister-in-law</li>
+                    <li><strong>Descendant:</strong> Children, Grandchildren</li>
+                    <li><strong>Ancestor:</strong> Parents, Grandparents</li>
+                </ul>
+            
+                <p><strong>Key Relationships:</strong> Rules for identifying key relationships:</p>
+                <ul>
+                    <li><strong>Father's Father:</strong> Grandfather (GF)</li>
+                    <li><strong>Mother's Father:</strong> Grandfather (GF)</li>
+                    <li><strong>Father's Sister:</strong> Aunt (A)</li>
+                    <li><strong>Mother's Sister:</strong> Aunt (A)</li>
+                    <li><strong>Father's Brother:</strong> Uncle (U)</li>
+                    <li><strong>Mother's Brother:</strong> Uncle (U)</li>
+                    <li><strong>Son's Son:</strong> Grandson</li>
+                    <li><strong>Daughter's Daughter:</strong> Granddaughter</li>
+                    <li><strong>Husband's Sister:</strong> Sister-in-law (SIL)</li>
+                    <li><strong>Wife's Brother:</strong> Brother-in-law (BIL)</li>
+                </ul>
+            
+                <p><strong>Blood Relation Puzzle Approach:</strong> To solve blood relation puzzles, follow these steps:</p>
+                <ul>
+                    <li>Identify all the given relationships in the question.</li>
+                    <li>Draw a family tree if necessary to visualize the relationships.</li>
+                    <li>Look for direct relationships (e.g., Father, Mother, Sibling).</li>
+                    <li>Then look for indirect relationships (e.g., Nephew, Aunt, Uncle).</li>
+                    <li>Use the process of elimination to find the correct relationship between individuals.</li>
+                </ul>
+            </div>
+            
+
+            <!-- Dice -->
+            <a href="dice.html?topic=dice">💰 Dice</a>
+            <button class="formula-btn" onclick="toggleFormula('diceFormula')">Show Formula</button>
+            <div id="diceFormula" class="formula-box">
+                <p><strong>Dice Probability:</strong></p>
+                <p>Dice problems involve understanding the possible outcomes when rolling dice. Common rules include:</p>
+            
+                <p><strong>Number of Outcomes:</strong> A single die has 6 faces, so the total number of outcomes when rolling one die is 6. When rolling two dice, the total number of outcomes is 36 (6 x 6).</p>
+                
+                <p><strong>Sum of Numbers:</strong> The sum is the total of the numbers shown on both dice. For example, if the dice show 3 and 4, the sum is 7.</p>
+                
+                <p><strong>Probability of a Specific Sum:</strong> To find the probability of rolling a specific sum, divide the number of favorable outcomes by the total number of possible outcomes (36 for two dice).</p>
+                <p>Example: The probability of rolling a sum of 7 is: </p>
+                <p>$$ P(\text{sum of 7}) = \frac{6}{36} = \frac{1}{6} $$</p>
+            
+                <p><strong>Favorable Outcomes:</strong> The favorable outcomes for each sum can be calculated by counting how many combinations of dice results produce that sum.</p>
+                <p>Example: The favorable outcomes for a sum of 7 are:</p>
+                <ul>
+                    <li>(1, 6)</li>
+                    <li>(2, 5)</li>
+                    <li>(3, 4)</li>
+                    <li>(4, 3)</li>
+                    <li>(5, 2)</li>
+                    <li>(6, 1)</li>
+                </ul>
+                <p><strong>Probability of Rolling Doubles:</strong> Rolling doubles means both dice show the same number. The probability of this happening is:</p>
+                <p>$$ P(\text{doubles}) = \frac{6}{36} = \frac{1}{6} $$</p>
+            
+                <p><strong>Expected Value:</strong> The expected value is the average value you can expect when rolling the dice multiple times. For two dice:</p>
+                <p>$$ E(\text{sum}) = \frac{7 + 7 + 7 + \cdots}{36} $$</p>
+            </div>
+            
+
+            <!-- Character Puzzle -->
+            <a href="charpuzz.html?topic=characterpuzzle">⏳ Character Puzzle</a>
+            <button class="formula-btn" onclick="toggleFormula('charPuzzleFormula')">Show Formula</button>
+            <div id="charPuzzleFormula" class="formula-box">
+                <p><strong>Character Puzzle:</strong></p>
+                <p>Character Puzzles involve finding relationships between letters, numbers, and positions in the alphabet. Common rules include:</p>
+            
+                <p><strong>Alphabet Position:</strong> Identify the position of a letter in the alphabet. For example:</p>
+                <ul>
+                    <li>A = 1</li>
+                    <li>B = 2</li>
+                    <li>C = 3</li>
+                    <li>...and so on until Z = 26.</li>
+                </ul>
+            
+                <p><strong>Alphabetic Shift:</strong> Shift a letter forward or backward by a certain number to get another letter. For example:</p>
+                <p>If you shift 'C' forward by 2, you get 'E' (C → D → E).</p>
+                <p>If you shift 'F' backward by 3, you get 'C' (F → E → D → C).</p>
+            
+                <p><strong>Opposite Letters:</strong> The opposite letter can be calculated by finding the letter at an equal distance from the end of the alphabet.</p>
+                <p>Example: A → Z, B → Y, C → X, D → W, and so on.</p>
+            
+                <p><strong>Reverse Alphabet:</strong> A reverse alphabet can be used to understand puzzles where the letters are arranged in reverse order. For example:</p>
+                <ul>
+                    <li>Z = 1</li>
+                    <li>Y = 2</li>
+                    <li>X = 3</li>
+                    <li>...and so on until A = 26.</li>
+                </ul>
+            
+                <p><strong>Pattern in Letters:</strong> Some puzzles involve identifying a pattern in the sequence of letters. For example:</p>
+                <p>In the sequence "A, D, G, J, ..." the pattern is that each letter is 3 positions ahead of the previous one. So, the next letter in the series is 'M'.</p>
+            </div>
+            
+
+        </div>
+
+        <a href="scoreboard.html" class="scoreboard-link">📊 View Scoreboard</a>
+    </div>
+
+    <script>
+        function toggleFormula(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+                MathJax.typeset(); // Rerender formulas
+            } else {
+                box.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

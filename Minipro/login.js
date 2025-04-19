@@ -1,17 +1,5 @@
 console.log("Script loaded successfully");
 
-// const firebaseConfig = {
-//     apiKey: "AIzaSyDU7yglucYCMDV6wSUr2t8DpPacpW-iEuU",
-//     authDomain: "aptimize-aptitude-app.firebaseapp.com",
-//     projectId: "aptimize-aptitude-app",
-//     storageBucket: "aptimize-aptitude-app.appspot.com",
-//     messagingSenderId: "343077561993",
-//     appId: "YOUR_APP_ID",
-//   };
-
-//   firebase.initializeApp(firebaseConfig);
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
 

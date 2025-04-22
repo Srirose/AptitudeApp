@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reasoning Quiz - AptiMize</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #4B0082;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .quiz-container {
+            width: 400px;
+            background: white;
+            color: black;
+            padding: 20px;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        #options button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px;
+            background: #4B0082;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #options button:hover {
+            background: #e50b0b;
+        }
+
+        #score, #time {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h2>Topic: Logical Reasoning</h2>
+        <h3 id="question-text">Loading...</h3>
+        
+        <div id="options"></div>
+
+        <button id="submit-btn" onclick="submitQuiz()" style="display: none;">Submit</button>
+
+        <div id="score">
+            <h3>Score: <span id="score-value">0</span></h3>
+        </div>
+
+        <div id="time">
+            <h3>Time Taken: <span id="time-value">0</span> seconds</h3>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let startTime = Date.now();
+        let questions = [
+            // Series Completion
+            { question: "1) Find the missing number: 2, 6, 12, 20, __?", options: ["26", "30", "32", "36"], answer: "30" },
+            { question: "2) What comes next? A, C, E, G, __?", options: ["H", "I", "J", "K"], answer: "I" },
+            
+            // Analogies
+            { question: "3) Apple : Fruit :: Rose : __?", options: ["Tree", "Flower", "Leaf", "Vegetable"], answer: "Flower" },
+            { question: "4) Book : Pages :: Chair : __?", options: ["Wood", "Legs", "Sit", "Furniture"], answer: "Legs" },
+            
+            // Blood Relations
+            { question: "5) A is the father of B. B is the mother of C. How is A related to C?", options: ["Uncle", "Father", "Grandfather", "Brother"], answer: "Grandfather" },
+            { question: "6) Pointing to a girl, Aman said, 'She is the daughter of my father’s only daughter'. Who is the girl?", options: ["Aman's Daughter", "Aman's Sister", "Aman's Niece", "Aman's Mother"], answer: "Aman's Daughter" },
+            
+            // Coding-Decoding
+            { question: "7) If 'APPLE' is coded as 'ELPPA', how is 'WORLD' coded?", options: ["DLROW", "DLOWR", "WORDL", "WOLDR"], answer: "DLROW" },
+            { question: "8) If 'SUN' is written as 'TVP', how is 'MOON' written?", options: ["NQQP", "NPPQ", "OPQR", "NQPP"], answer: "NQPP" },
+            
+            // Direction Sense
+            { question: "9) A person walks 5 km North, then 3 km East, then 2 km South. How far is he from the starting point?", options: ["4 km", "5 km", "6 km", "7 km"], answer: "5 km" },
+            { question: "10) Raj is facing South. He turns 90° clockwise, then 180° counterclockwise. Which direction is he facing now?", options: ["East", "West", "North", "South"], answer: "East" },
+
+            // Additional Series & Patterns
+            { question: "11) What comes next? 3, 9, 27, 81, __?", options: ["162", "243", "324", "450"], answer: "243" },
+            { question: "12) If DOG = 4157, then CAT = __?", options: ["3142", "3152", "3145", "3257"], answer: "3142" },
+
+            // Logical Deduction
+            { question: "13) If all cats are animals and some animals are wild, which of the following is true?", options: ["All cats are wild", "Some cats are wild", "All animals are cats", "None of these"], answer: "None of these" },
+            { question: "14) If 'Pen' is related to 'Write', then 'Knife' is related to?", options: ["Cut", "Paint", "Break", "Eat"], answer: "Cut" },
+
+            // Logical Sequence
+            { question: "15) Arrange logically: 1. Seed, 2. Tree, 3. Fruit, 4. Plant", options: ["1, 2, 3, 4", "1, 4, 2, 3", "1, 3, 2, 4", "4, 1, 2, 3"], answer: "1, 4, 2, 3" },
+
+            // Odd One Out
+            { question: "16) Find the odd one: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"], answer: "Carrot" },
+            { question: "17) Find the odd one: 2, 4, 8, 9, 16", options: ["2", "4", "8", "9"], answer: "9" },
+
+            // Puzzle
+            { question: "18) A is older than B, B is older than C. Who is the youngest?", options: ["A", "B", "C", "Cannot be determined"], answer: "C" },
+            { question: "19) If 2 + 3 = 10, 3 + 4 = 20, then 4 + 5 = ?", options: ["30", "25", "40", "45"], answer: "40" },
+
+            // Number Puzzle
+            { question: "20) If 1 = 3, 2 = 6, 3 = 9, then 4 = ?", options: ["12", "15", "8", "16"], answer: "12" }
+        ];
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                let q = questions[currentQuestionIndex];
+                document.getElementById("question-text").textContent = q.question;
+
+                let optionsDiv = document.getElementById("options");
+                optionsDiv.innerHTML = "";
+                q.options.forEach(opt => {
+                    let btn = document.createElement("button");
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(opt, q.answer);
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                document.getElementById("submit-btn").style.display = "block";
+            }
+        }
+
+        
+        function checkAnswer(selected, correct) {
+            let optionsDiv = document.getElementById("options");
+            let buttons = optionsDiv.getElementsByTagName("button");
+
+            for (let btn of buttons) {
+                if (btn.textContent === selected) {
+                    if (selected === correct) {
+                        btn.style.backgroundColor = "green"; // Correct Answer: Green
+                    } else {
+                        btn.style.backgroundColor = "red"; // Wrong Answer: Red
+                    }
+                }
+
+                // Highlight correct answer in green
+                if (btn.textContent === correct) {
+                    btn.style.backgroundColor = "green";
+                }
+
+                // Disable all buttons to prevent multiple clicks
+                btn.disabled = true;
+            }
+
+            if (selected === correct) {
+                score++;
+            }
+            currentQuestionIndex++;
+
+            // Wait 1 second before loading the next question
+            setTimeout(loadQuestion, 1000);
+        }
+        
+        function startConfetti() {
+            const duration = 3 * 1000; // Confetti duration (3 seconds)
+            const end = Date.now() + duration;
+            const colors = ["#bb0000", "#ffffff", "#44ff00", "#0082ff"];
+
+            function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: Math.random(), y: 0 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }
+
+            frame();
+        }
+
+
+        
+
+        function submitQuiz() {
+            let totalTime = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById("score").style.display = "block";
+            document.getElementById("score-value").textContent = score + "/" + questions.length;
+            document.getElementById("time").style.display = "block";
+            document.getElementById("time-value").textContent = totalTime;
+
+            let userScores = JSON.parse(localStorage.getItem("userScores")) || {};
+            userScores["Reasoning"] = score; // Save Train quiz score
+            localStorage.setItem("userScores", JSON.stringify(userScores));
+            
+            setTimeout(() => {
+                window.location.href = "scoreboard.html";
+            }, 3000);
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AptiMize - Select Topic</title>
+    <link rel="stylesheet" href="topicquizscore.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AptiMize - Aptitude Learning</h1>
+        <h2>Select a Topic to Start</h2>
+        <div class="topics">
+            <a href="mirrorimage.html">🚆Mirror Image</a>
+            <a href="waterimage.html">💰 Water Image</a>
+            <a href="patterncompletion.html?topic=patterncompletion">⏳ Pattern Completion</a>
+        </div>
+
+        <a href="scoreboard.html" class="scoreboard-link">📊 View Scoreboard</a>
+    </div>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AptiMize - Select Topic with Formulas</title>
+    <link rel="stylesheet" href="topicquizscore.css">
+    
+    <style>
+        .formula-btn {
+            background-color: #007acc;
+            color: black;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .formula-btn:hover {
+            background-color: #005fa3;
+        }
+
+        .formula-box {
+            display: none;
+            margin-top: 10px;
+            background-color: black;
+            padding: 10px;
+            border-left: 4px solid #007acc;
+            border-radius: 6px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AptiMize - Aptitude Learning</h1>
+        <h2>Select a Topic to Start</h2>
+        <div class="topics">
+            <!-- Mirror Image -->
+            <a href="mirrorimage.html">🚆 Mirror Image</a>
+            <button class="formula-btn" onclick="toggleFormula('mirrorImageFormula')">Show Formula</button>
+            <div id="mirrorImageFormula" class="formula-box">
+                <p><strong>Mirror Image:</strong></p>
+                <p>Involves finding the mirror image of a given figure. Common rules include:</p>
+                
+                <p><strong>Vertical Mirror Image:</strong> The left and right sides of the object are swapped. For example:</p>
+                <ul>
+                    <li>If the letter "P" is reflected in a vertical mirror, it becomes "Ԛ".</li>
+                    <li>In a vertical mirror, the object's reflection is flipped horizontally.</li>
+                </ul>
+                
+                <p><strong>Horizontal Mirror Image:</strong> The top and bottom sides of the object are swapped. For example:</p>
+                <ul>
+                    <li>If the letter "E" is reflected in a horizontal mirror, it still remains "E", but flipped upside down.</li>
+                </ul>
+                
+                <p><strong>Shape Symmetry:</strong> Some objects have symmetrical reflections along a mirror. For example:</p>
+                <ul>
+                    <li>A symmetrical shape like a square or an equilateral triangle remains unchanged when reflected in a mirror.</li>
+                    <li>Asymmetrical shapes like letters or objects may look completely different when reflected in a mirror.</li>
+                </ul>
+                
+                <p><strong>Understanding Direction:</strong> The mirror reflects a change in direction. For example:</p>
+                <ul>
+                    <li>In the case of a letter or shape with directional lines, such as an arrow, its direction changes after reflection.</li>
+                    <li>For example, a right-pointing arrow (→) becomes a left-pointing arrow (←) in the mirror.</li>
+                </ul>
+                
+                <p><strong>Common Mirror Image Examples:</strong> Common letters and shapes reflected in mirrors:</p>
+                <ul>
+                    <li>A → A (Vertical Symmetry)</li>
+                    <li>B → Ԛ (Vertical Mirror)</li>
+                    <li>C → Ɔ (Vertical Mirror)</li>
+                    <li>D → p (Horizontal Mirror)</li>
+                    <li>Arrow → ← (Horizontal Mirror)</li>
+                </ul>
+            </div>
+            
+
+            <!-- Water Image -->
+            <a href="waterimage.html">💰 Water Image</a>
+            <button class="formula-btn" onclick="toggleFormula('waterImageFormula')">Show Formula</button>
+            <div id="waterImageFormula" class="formula-box">
+                <p><strong>Water Image:</strong></p>
+                <p>Water Image problems involve understanding how an object looks when reflected in a body of water. Common rules include:</p>
+                
+                <p><strong>Vertical Reflection:</strong> The object is flipped vertically, but its left and right sides remain unchanged.</p>
+                <ul>
+                    <li>If the letter "P" is placed in water, it becomes "Ԛ" (the bottom part is reflected).</li>
+                    <li>The water image involves flipping the object along the horizontal axis.</li>
+                </ul>
+                
+                <p><strong>Horizontal Reflection:</strong> The object is flipped along the horizontal axis, resulting in a mirror image from top to bottom.</p>
+                <ul>
+                    <li>If the letter "A" is placed in water, it remains "A" (since it has vertical symmetry).</li>
+                    <li>Objects with horizontal symmetry remain unchanged in the water image.</li>
+                </ul>
+                
+                <p><strong>Shape Symmetry:</strong> Some shapes or letters remain the same when reflected in water due to symmetry. For example:</p>
+                <ul>
+                    <li>Letters like "A", "H", "I", "M", "O", "T", "U", "V", "W", "X", and "Y" have vertical symmetry, meaning they remain unchanged in a water image.</li>
+                    <li>Asymmetrical objects or letters, like "B", "C", "D", and "E", will appear different in the water image.</li>
+                </ul>
+                
+                <p><strong>Common Water Image Examples:</strong> Here are some examples of how different letters look in water:</p>
+                <ul>
+                    <li>A → A (Vertical Symmetry)</li>
+                    <li>B → Ɓ (Vertical Reflection)</li>
+                    <li>C → Ɔ (Vertical Reflection)</li>
+                    <li>D → p (Horizontal Reflection)</li>
+                    <li>Arrow → ↔ (Horizontal Reflection)</li>
+                </ul>
+            </div>
+            
+
+            <!-- Pattern Completion -->
+            <a href="patterncompletion.html?topic=patterncompletion">⏳ Pattern Completion</a>
+            <button class="formula-btn" onclick="toggleFormula('patternCompletionFormula')">Show Formula</button>
+            <div id="patternCompletionFormula" class="formula-box">
+                <p><strong>Pattern Completion:</strong></p>
+                <p>Pattern Completion problems involve identifying the missing part or element of a given sequence or pattern. Common rules include:</p>
+                
+                <p><strong>Identify the Sequence:</strong> Look for a logical sequence in the pattern, whether it's numbers, letters, shapes, or symbols.</p>
+                <ul>
+                    <li>For example, in a numerical pattern, you may need to identify a consistent difference between consecutive numbers.</li>
+                    <li>In a shape pattern, look for a consistent transformation (rotation, reflection, etc.) between successive shapes.</li>
+                </ul>
+                
+                <p><strong>Consistency in Transformation:</strong> Patterns usually follow a consistent rule. Common transformations include:</p>
+                <ul>
+                    <li><strong>Repetition:</strong> The same pattern repeats after a fixed number of elements (e.g., 1, 2, 1, 2, ...).</li>
+                    <li><strong>Rotation:</strong> The pattern may rotate by a certain degree (e.g., 90°, 180°) or move in a circular pattern.</li>
+                    <li><strong>Reflection:</strong> Shapes or symbols may be mirrored along an axis (vertical or horizontal).</li>
+                    <li><strong>Progression:</strong> The pattern may involve a mathematical or geometric progression, such as arithmetic or geometric sequences.</li>
+                </ul>
+                
+                <p><strong>Recognizing Gaps:</strong> Often, a gap in the pattern needs to be filled based on the logical sequence you've identified. Common strategies include:</p>
+                <ul>
+                    <li>Looking for the next number in a sequence (e.g., 2, 4, 6, __?__ → 8).</li>
+                    <li>Identifying the next shape or symbol in a visual pattern based on symmetry or transformation rules.</li>
+                    <li>Recognizing a repeating cycle and predicting the next element in the cycle.</li>
+                </ul>
+                
+                <p><strong>Key Strategies for Solving Pattern Completion Problems:</strong></p>
+                <ul>
+                    <li>Observe the pattern closely and identify any recurring elements or intervals between them.</li>
+                    <li>Consider multiple transformations such as rotations, reflections, shifts, or arithmetic progressions.</li>
+                    <li>Eliminate answers that do not conform to the identified pattern or transformation.</li>
+                </ul>
+            </div>
+            
+            
+        </div>
+
+        <a href="scoreboard.html" class="scoreboard-link">📊 View Scoreboard</a>
+    </div>
+
+    <script>
+        function toggleFormula(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === 'none' || box.style.display === '') {
+                box.style.display = 'block';
+            } else {
+                box.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
